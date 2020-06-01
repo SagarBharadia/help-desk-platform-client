@@ -1,0 +1,78 @@
+/* Styles to be applied to the root element */
+:root {
+  font-family: "Roboto", sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.standard-margin-bottom {
+  margin-bottom: 20px !important;
+}
+
+.clearfix {
+  clear: both;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+
+.red-table-row {
+  background-color: #ffcdd2;
+}
+
+/*
+ * Bigger than XS breakpoint (0px)
+ */
+.xs-full-width {
+  width: 100%;
+}
+
+/*
+ * Bigger than SM breakpoint (600px)
+ */
+@media screen and (min-width: 600px) {
+  .sm-full-width {
+    width: 100%;
+  }
+  .sm-half-width {
+    width: calc(50% - 20px);
+  }
+}
+
+/*
+ * Bigger than MD breakpoint (960px)
+ */
+@media screen and (min-width: 960px) {
+  .md-third-width {
+    width: calc(33% - 20px);
+  }
+  .md-fifth-width {
+    width: calc(20% - 20px);
+  }
+  .md-half-width {
+    width: calc(50% - 20px);
+  }
+  .md-quarter-width {
+    width: calc(25% - 20px);
+  }
+  .md-three-quarter-width {
+    width: calc(75% - 20px);
+  }
+}
+
+/*
+ * Bigger than LG breakpoint (1280px)
+ */
+@media screen and (min-width: 1280px) {
+}
+
+/*
+ * Bigger than XL breakpoint (1920px)
+ */
+@media screen and (min-width: 1920px) {
+}
