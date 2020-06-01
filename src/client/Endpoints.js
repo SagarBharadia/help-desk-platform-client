@@ -6,11 +6,18 @@ const Endpoints = {
   api: {
     login: "super/api/login",
     checkToken: "super/api/check-token",
+
+    createTenant: "super/api/tenants/create",
+    getAllTenants: "super/api/tenants/get/all",
   },
 
   client: {
     login: "/super",
     dashboard: "/super/dashboard",
+
+    tenantsArea: "/super/tenants",
+    createTenant: "/super/tenants/create",
+    viewTenant: "/super/tenants/:id",
   },
 
   get: function (type, endpointName, data) {

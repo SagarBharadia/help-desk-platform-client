@@ -30,6 +30,10 @@ class DashboardAppBar extends Component {
       name: "Home",
       link: Endpoints.get("client", "dashboard"),
     },
+    {
+      name: "Tenants",
+      link: Endpoints.get("client", "tenantsArea"),
+    },
   ];
 
   toggleDrawer = () => {

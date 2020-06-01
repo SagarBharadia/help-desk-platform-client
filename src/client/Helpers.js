@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 export function getBaseHeaders() {
   const headers = {
     headers: {
-      Authorization: "Bearer " + Cookies.get("token"),
+      Authorization: "Bearer " + Cookies.get("super-token"),
     },
   };
   return headers;
