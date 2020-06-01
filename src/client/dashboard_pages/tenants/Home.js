@@ -25,18 +25,6 @@ class Home extends Component {
     this.setState({ pageErrors: pageErrors });
   };
 
-  componentDidMount() {
-    const getParams = new URLSearchParams(this.props.location.search);
-
-    if (getParams.get("deleted") === "success") {
-      const pageMessages = [
-        ...this.state.pageMessages,
-        { severity: "success", text: "Deleted role successfully." },
-      ];
-      this.setState({ pageMessages: pageMessages });
-    }
-  }
-
   render() {
     const { pageErrors, pageMessages } = { ...this.state };
 
@@ -54,7 +42,7 @@ class Home extends Component {
             >
               Home
             </MuiLink>
-            <Typography color="textPrimary">Roles</Typography>
+            <Typography color="textPrimary">Tenants</Typography>
           </Breadcrumbs>
           <Box
             display="flex"
@@ -72,7 +60,7 @@ class Home extends Component {
               style={{ marginLeft: "20px" }}
               to={Endpoints.get("client", "createTenant")}
             >
-              Create Role
+              Create Tenant
             </Button>
           </Box>
           <Messages pageErrors={pageErrors} pageMessages={pageMessages} />

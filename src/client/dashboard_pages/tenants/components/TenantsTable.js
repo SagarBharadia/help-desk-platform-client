@@ -30,7 +30,6 @@ class TenantsTable extends Component {
     axios
       .get(getTenantsEndpoint, headers)
       .then((res) => {
-        console.log(res.data.data);
         this.setState({
           tenants: res.data.data,
           nextPageURL: res.data.next_page_url,
@@ -83,7 +82,7 @@ class TenantsTable extends Component {
     return (
       <div>
         <TableContainer component={Paper} className="standard-margin-bottom">
-          <Table aria-label="table containing the roles">
+          <Table aria-label="table containing the tenants">
             <TableHead>
               <TableRow>
                 <TableCell>id</TableCell>
