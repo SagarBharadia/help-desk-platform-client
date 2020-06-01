@@ -218,7 +218,11 @@ class View extends Component {
             >
               <a
                 style={{ color: "#fff" }}
-                href={AppConfig.TENANT_CLIENT_URL + "mycompany/dashboard"}
+                href={
+                  AppConfig.TENANT_CLIENT_URL +
+                  tenant.company_url_subdirectory +
+                  "/dashboard"
+                }
                 target="_blank"
                 rel="noopener noreferrer"
               >
