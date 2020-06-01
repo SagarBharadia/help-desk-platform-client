@@ -19,6 +19,9 @@ import {
 
 import Messages from "../layout/Messages";
 
+import { Alert } from "@material-ui/lab";
+import Cookies from "js-cookie";
+
 class View extends Component {
   tenant_id = this.props.match.params.id;
   state = {
@@ -38,6 +41,7 @@ class View extends Component {
     },
     pageMessages: [],
     pageErrors: [],
+    showLinkToTenantDashboard: false,
   };
 
   onChange = (e) => {
@@ -55,6 +59,7 @@ class View extends Component {
     const getTenantEndpoint = Endpoints.get("api", "getSingleTenant", {
       id: this.tenant_id,
     });
+    this.resetErrors();
     axios
       .get(getTenantEndpoint, headers)
       .then((res) => {
@@ -81,25 +86,19 @@ class View extends Component {
       })
       .catch((error) => {
         if (error.response) {
-          if (error.response.status === 401) {
-            const pageErrors = [
-              ...this.state.pageErrors,
-              "Unauthorized to view tenant.",
-            ];
-            this.setState({
-              pageErrors: pageErrors,
-            });
-          } else if (error.response.status === 404) {
-            const pageErrors = [
-              ...this.state.pageErrors,
-              "This tenant doesn't exist.",
-            ];
-            this.setState({
-              pageErrors: pageErrors,
-            });
-          }
+          const pageErrors = [error.response.data.message];
+          this.setState({
+            pageErrors: pageErrors,
+          });
         }
       });
+  };
+
+  resetErrors = () => {
+    this.setState({
+      pageErrors: [],
+      pageMessages: [],
+    });
   };
 
   changeTenantSecret = () => {
@@ -107,6 +106,7 @@ class View extends Component {
     const changeSecret = Endpoints.get("api", "changeTenantSecret", {
       id: this.tenant_id,
     });
+    this.resetErrors();
     axios
       .get(changeSecret, headers)
       .then((res) => {
@@ -121,29 +121,60 @@ class View extends Component {
       })
       .catch((error) => {
         if (error.response) {
-          if (error.response.status === 401) {
-            const pageErrors = [
-              ...this.state.pageErrors,
-              "Unauthorized to change tenant secret.",
-            ];
-            this.setState({
-              pageErrors: pageErrors,
-            });
-          } else if (error.response.status === 404) {
-            const pageErrors = [
-              ...this.state.pageErrors,
-              "This tenant doesn't exist.",
-            ];
-            this.setState({
-              pageErrors: pageErrors,
-            });
-          }
+          const pageErrors = [error.response.data.message];
+          this.setState({
+            pageErrors: pageErrors,
+          });
+        }
+      });
+  };
+
+  manageTenant = () => {
+    const headers = getBaseHeaders();
+    const manageTenantEndpoint = Endpoints.get("api", "manageTenant", {
+      id: this.tenant_id,
+    });
+    this.resetErrors();
+    axios
+      .get(manageTenantEndpoint, headers)
+      .then((res) => {
+        Cookies.set("token-type", res.data.token_type, {
+          expires: res.data.expires_in / 1440,
+        });
+        Cookies.set("token", res.data.token, {
+          expires: res.data.expires_in / 1440,
+        });
+        Cookies.set("auth-company-subdir", res.data.company_subdir, {
+          expires: res.data.expires_in / 1440,
+        });
+        Cookies.set("auth-company-name", res.data.company_name, {
+          expires: res.data.expires_in / 1440,
+        });
+        Cookies.set("user-name", res.data.user_name, {
+          expires: res.data.expires_in / 1440,
+        });
+        this.setState({
+          showLinkToTenantDashboard: true,
+          pageMessages: [
+            {
+              text: res.data.message,
+              severity: "success",
+            },
+          ],
+        });
+      })
+      .catch((error) => {
+        if (error.response) {
+          const pageErrors = [error.response.data.message];
+          this.setState({
+            pageErrors: pageErrors,
+          });
         }
       });
   };
 
   render() {
-    const { pageMessages, pageErrors, tenant } = {
+    const { pageMessages, pageErrors, tenant, showLinkToTenantDashboard } = {
       ...this.state,
     };
     return (
@@ -178,6 +209,23 @@ class View extends Component {
           </Typography>
           <Divider className="standard-margin-bottom" />
           <Messages pageMessages={pageMessages} pageErrors={pageErrors} />
+          {showLinkToTenantDashboard ? (
+            <Alert
+              key={"showLinktoTenantDashboard-1"}
+              variant="filled"
+              severity="success"
+              className="standard-margin-bottom"
+            >
+              <a
+                style={{ color: "#fff" }}
+                href={AppConfig.TENANT_CLIENT_URL + "mycompany/dashboard"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Click here to go to tenant dashboard
+              </a>
+            </Alert>
+          ) : null}
           <Box
             display="flex"
             flexDirection="row"
@@ -249,6 +297,15 @@ class View extends Component {
             onClick={this.changeTenantSecret}
           >
             Change Secret
+          </Button>
+          <Button
+            className="xs-full-width standard-margin-bottom"
+            type="button"
+            variant="contained"
+            color="secondary"
+            onClick={this.manageTenant}
+          >
+            Manage Tenant
           </Button>
         </main>
       </DashboardWrapper>
