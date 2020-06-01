@@ -41,7 +41,7 @@ class TenantsTable extends Component {
           if (error.response.status === 401) {
             const pageErrors = [
               ...this.props.pageErrors,
-              "Unauthorized to view tenants. Please contact your admin for this permission.",
+              "Unauthorized to view tenants.",
             ];
             this.props.setPageErrors(pageErrors);
           }
@@ -69,7 +69,7 @@ class TenantsTable extends Component {
           if (error.response.status === 401) {
             const pageErrors = [
               ...this.props.pageErrors,
-              "Unauthorized to view tenants. Please contact your admin for this permission.",
+              "Unauthorized to view tenants.",
             ];
             this.props.setPageErrors(pageErrors);
           }

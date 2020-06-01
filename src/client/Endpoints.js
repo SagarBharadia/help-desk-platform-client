@@ -9,6 +9,8 @@ const Endpoints = {
 
     createTenant: "super/api/tenants/create",
     getAllTenants: "super/api/tenants/get/all",
+    getSingleTenant: "super/api/tenants/get/:id",
+    changeTenantSecret: "super/api/tenants/:id/change-secret",
   },
 
   client: {

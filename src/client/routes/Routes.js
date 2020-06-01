@@ -10,6 +10,7 @@ import Dashboard from "../dashboard_pages/Dashboard";
 
 // Importing Tenant Pages
 import { default as TenantsHome } from "../dashboard_pages/tenants/Home";
+import { default as TenantsView } from "../dashboard_pages/tenants/View";
 
 // Importing error pages
 import Error404 from "../website_pages/error_pages/Error404";
@@ -37,6 +38,13 @@ class Routes extends React.Component {
             path={Endpoints.getRaw("client", "tenantsArea")}
             render={(props) => (
               <Guarded page={TenantsHome} {...this.props} {...props} />
+            )}
+          />
+          <Route
+            exact
+            path={Endpoints.getRaw("client", "viewTenant")}
+            render={(props) => (
+              <Guarded page={TenantsView} {...this.props} {...props} />
             )}
           />
           <Route render={(props) => <Error404 {...props} />} />
