@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import DashboardWrapper from "./layout/DashboardWrapper";
 
-import Cookies from "js-cookie";
-
 class Dashboard extends Component {
   render() {
     return (

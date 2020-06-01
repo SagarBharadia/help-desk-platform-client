@@ -67,11 +67,11 @@ class DashboardAppBar extends Component {
   };
 
   logOff = () => {
-    Cookies.remove("token");
-    Cookies.remove("token-type");
-    Cookies.remove("auth-company-subdir");
-    Cookies.remove("auth-company-name");
-    Cookies.remove("user-name");
+    Cookies.remove("super-token");
+    Cookies.remove("super-token-type");
+    Cookies.remove("super-auth-company-subdir");
+    Cookies.remove("super-auth-company-name");
+    Cookies.remove("super-user-name");
     this.setState({
       redirectLogOff: true,
     });
@@ -79,8 +79,8 @@ class DashboardAppBar extends Component {
 
   render() {
     const { redirectLogOff } = { ...this.state };
-    const user_name = Cookies.get("user-name");
-    const company_name = Cookies.get("auth-company-name");
+    const user_name = Cookies.get("super-user-name");
+    const company_name = Cookies.get("super-auth-company-name");
     return (
       <AppBar position="sticky" style={{ marginBottom: "40px" }}>
         {redirectLogOff ? (

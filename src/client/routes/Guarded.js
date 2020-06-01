@@ -1,21 +1,16 @@
 import React, { Component } from "react";
-import Cookies from "js-cookie";
 
-import { Redirect } from "react-router-dom";
-
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Button,
-  Typography,
-} from "@material-ui/core";
+import Login from "../dashboard_pages/Login";
 
 class Guarded extends Component {
   render() {
     return (
       <div>
-        {this.props.authenticated ? <this.props.page {...this.props} /> : ""}
+        {this.props.authenticated ? (
+          <this.props.page {...this.props} />
+        ) : (
+          <Login {...this.props} />
+        )}
       </div>
     );
   }

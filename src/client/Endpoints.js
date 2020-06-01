@@ -15,8 +15,6 @@ const Endpoints = {
 
   get: function (type, endpointName, data) {
     type = type.toLowerCase();
-    if (typeof data !== "object")
-      throw new Error("Data is a non-object when object is required.");
     if (typeof type !== "string") throw new Error("Type must be string");
     if (!this.allowedTypes.includes(type))
       throw new Error("Type must be in " + this.allowedTypes.toString());
